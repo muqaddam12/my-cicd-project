@@ -1,20 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Muqaddam | DevOps Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muqaddam | DevOps Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background: #0f172a; color: white; text-align: center; padding: 50px; }
-        .box { border: 2px solid #3b82f6; padding: 20px; border-radius: 15px; display: inline-block; }
-        h1 { color: #3b82f6; }
-        .status { color: #22c55e; font-weight: bold; }
+        :root {
+            --bg: #0b0f1a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0b0f1a 100%);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Dashboard Container */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Pipeline Visualizer */
+        .pipeline-container {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: #1e293b;
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: 600;
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+        .step:hover .step-icon {
+            background: var(--primary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            border-color: var(--primary);
+        }
+
+        .line {
+            position: absolute;
+            top: 65px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .code-block {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #10b981;
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-top: 60px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .pipeline-container { flex-direction: column; gap: 30px; }
+            .line { display: none; }
+        }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>CI/CD Pipeline: SUCCESS</h1>
-        <p>Architect: <strong>Muqaddam</strong></p>
-        <p>Status: <span class="status">LIVE ON EC2</span></p>
-        <p>This page was deployed automatically via AWS CodePipeline!</p>
+
+    <div class="hero">
+        <span class="badge">AWS Certified Architecture</span>
+        <h1>Muqaddam</h1>
+        <p style="color: var(--text-dim); font-size: 1.2rem;">DevOps & Cloud Solutions Architect</p>
     </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <h2><span>🚀</span> Project Status</h2>
+            <p>This environment is currently <strong>Live</strong> and managed by a fully automated CI/CD pipeline.</p>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
+                <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent);"></div>
+                <span style="font-weight: 600;">System Healthy</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span>🛠️</span> Infrastructure</h2>
+            <ul style="list-style: none; padding: 0; color: var(--text-dim);">
+                <li style="margin-bottom: 8px;">🔹 <strong>Host:</strong> Amazon EC2 (t2.micro)</li>
+                <li style="margin-bottom: 8px;">🔹 <strong>Web Server:</strong> Nginx v1.28</li>
+                <li style="margin-bottom: 8px;">🔹 <strong>OS:</strong> Amazon Linux 2023</li>
+            </ul>
+        </div>
+
+        <div class="card pipeline-container">
+            <div class="line"></div>
+            
+            <div class="step">
+                <div class="step-icon">1</div>
+                <p><strong>GitHub</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">Source Code</span></p>
+            </div>
+
+            <div class="step">
+                <div class="step-icon">2</div>
+                <p><strong>CodeBuild</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">Artifact Packaging</span></p>
+            </div>
+
+            <div class="step">
+                <div class="step-icon">3</div>
+                <p><strong>CodeDeploy</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">Instance Delivery</span></p>
+            </div>
+
+            <div class="step">
+                <div class="step-icon">4</div>
+                <p><strong>EC2</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">Live Website</span></p>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2><span>📖</span> How the Automation Works</h2>
+            <p style="color: var(--text-dim); line-height: 1.6;">
+                This project demonstrates a production-grade <strong>Continuous Integration and Continuous Deployment (CI/CD)</strong> workflow. When a commit is pushed to the GitHub repository, a Webhook triggers <strong>AWS CodePipeline</strong>. The pipeline fetches the source, passes it to <strong>CodeBuild</strong> for validation using the <code>buildspec.yml</code>, and finally hands it to <strong>CodeDeploy</strong>. CodeDeploy communicates with the agent on the EC2 instance to update the <code>index.html</code> in the <code>/var/www/html/</code> directory based on the <code>appspec.yml</code> instructions.
+            </p>
+            <div class="code-block">
+                $ git push origin main<br>
+                > Triggering AWS CodePipeline...<br>
+                > Deploying to EC2 (18.118.133.105)...<br>
+                > SUCCESS: Environment Updated!
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Muqaddam | Automated via AWS DevOps Tools
+    </footer>
+
 </body>
 </html>
