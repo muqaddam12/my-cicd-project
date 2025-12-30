@@ -1,12 +1,8 @@
 version: 0.2
 phases:
-  install:
-    commands:
-      - echo "Installing nothing, this is a simple HTML site"
   build:
     commands:
-      - echo "Build started on `date`"
+      - echo "Packaging E-Commerce Dashboard..."
 artifacts:
   files:
-    - index.html
-    - appspec.yml
+    - '**/*' # This tells AWS to take EVERY file in your repo
